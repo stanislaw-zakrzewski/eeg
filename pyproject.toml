@@ -1,0 +1,28 @@
+[tool.poetry]
+name = "eeg"
+version = "0.1.0"
+description = ""
+authors = ["Stanisław Zakrzewski <stanislaw.zakrzewski13@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.12,<3.15"
+sktime = "^0.40.1"
+mne = "^1.11.0"
+numpy = "2.3.5"
+matplotlib = "3.9"
+pyedflib = "^0.1.42"
+torch = {version = "^2.5.1+cu121", source = "pytorch-gpu"}
+torchvision = {version = "^0.20.1+cu121", source = "pytorch-gpu"}
+torchaudio = {version = "^2.5.1+cu121", source = "pytorch-gpu"}
+pyriemann = "^0.10"
+
+
+[[tool.poetry.source]]
+name = "pytorch-gpu"
+url = "https://download.pytorch.org/whl/cu121"
+priority = "explicit"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
