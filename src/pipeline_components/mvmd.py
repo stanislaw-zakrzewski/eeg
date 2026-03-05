@@ -1,7 +1,7 @@
 import numpy as np
+from sklearn.base import BaseEstimator, TransformerMixin
 
-
-class MVMD:
+class MVMD(BaseEstimator, TransformerMixin):
     def __init__(self, alpha=20000, tau=0, K=5, DC=0, init=1, tol=1e-7, max_iter=500):
         """
         Multivariate Variational Mode Decomposition (MVMD)
@@ -13,6 +13,7 @@ class MVMD:
         - DC: 0 (no DC part), 1 (DC part included)
         - init: 1 (Uniform initialization of omegas), 2 (Random)
         - tol: Convergence tolerance
+        - max_iter: Maximum number of iterations
         """
         self.alpha = alpha
         self.tau = tau
@@ -21,8 +22,56 @@ class MVMD:
         self.init = init
         self.tol = tol
         self.max_iter = max_iter
+        self.fit_count = 0
+        self.transform_count = 0
 
-    def __call__(self, signal):
+    def fit(self, X, y=None):
+        """
+        Fit the model.
+
+        Parameters:
+        - X: Input data
+        - y: Target values (unused)
+
+        Returns:
+        - self
+        """
+        self.fit_count += 1
+        print('Fit:',self.fit_count)
+        return self
+
+    def transform(self, X):
+        """
+        Transform the data.
+
+        Parameters:
+        - X: Input data of shape (n_epochs, n_channels, n_times)
+
+        Returns:
+        - X_transformed: Transformed data of shape (n_epochs, K * n_channels, n_times)
+        """
+        self.transform_count += 1
+        print('Transform:',self.transform_count)
+        # Check if X is a list or numpy array
+        if not isinstance(X, np.ndarray):
+            X = np.array(X)
+
+        if X.ndim != 3:
+            raise ValueError(f"Expected 3D input (n_epochs, n_channels, n_times), got {X.ndim}D")
+
+        n_epochs, n_channels, n_times = X.shape
+        X_transformed = []
+
+        for i in range(n_epochs):
+            u, _ = self._decompose(X[i])
+            # u shape: (K, n_channels, n_times)
+            # Reshape to stack modes as channels: (K * n_channels, n_times)
+            u_reshaped = u.reshape(self.K * n_channels, n_times)
+            X_transformed.append(u_reshaped)
+
+        return np.array(X_transformed)
+
+    def _decompose(self, signal):
         """
         Input:
             signal: numpy array of shape (Channels, Time)

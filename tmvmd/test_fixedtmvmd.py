@@ -1,5 +1,5 @@
 import numpy as np
-from tmvmd.FixedMVMD import FixedMVMD
+from decomposition.FixedMVMD import FixedMVMD
 import matplotlib.pyplot as plt
 
 # 1. Generate Signal with offset frequencies

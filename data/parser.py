@@ -6,7 +6,7 @@ from sklearn.model_selection import ShuffleSplit
 
 
 
-def raw_to_train_test(edf_paths, n_splits=4):
+def raw_to_train_test(edf_paths, selected_channels, n_splits=4):
     """
     Args:
         edf_paths: paths to edf files
@@ -26,7 +26,7 @@ def raw_to_train_test(edf_paths, n_splits=4):
             label_dict = dict((v, k) for k, v in subject.id_dict.items())
 
             raw_signal = subject.raw
-            select_channels(raw_signal, ['C3', 'Cz', 'C4'])
+            select_channels(raw_signal, selected_channels)
             channel_names = raw_signal.info['ch_names']
             filtered_raw_signal = raw_signal.filter(l_freq=5.0, h_freq=28,
                                                     l_trans_bandwidth=0.5,
@@ -52,7 +52,7 @@ def raw_to_train_test(edf_paths, n_splits=4):
         except:
             print(edf_path)
 
-    return fs, splits, label_dict
+    return fs, splits, label_dict, channel_names
 
 
 def raw_to_subject_signals(edf_paths, n_splits=4):

@@ -1,0 +1,11 @@
+{
+  "annotation_mapping": {
+    "movement": "hands",
+    "rest": "rest"
+  },
+  "edf_location": "../data",
+  "bids_location": "../bids_datasets/sample_dataset",
+  "channel_mapping": {
+    "CZ": "Cz"
+  }
+}
