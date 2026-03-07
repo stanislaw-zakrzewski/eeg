@@ -62,4 +62,4 @@ Configuration file example:
 ```
 
 ### Running create_dataset.py tool
-After making sure that all edf files are named appropriately and configuration file is up to date run [`create_dataset.py`](create_dataset.py) in its directory. 
+After making sure that all edf files are named appropriately and configuration file is up to date run [`create_dataset.py`](create_dataset.py) from the main directory. 

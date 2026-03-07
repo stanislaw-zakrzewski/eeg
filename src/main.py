@@ -1,5 +1,6 @@
 import warnings
 import moabb
+import json
 from data_loading import get_dataset, get_paradigm
 from pipeline import get_pipeline, PipelineType
 from evaluation import get_evaluation
@@ -10,9 +11,10 @@ warnings.filterwarnings("ignore")
 
 
 def main():
-    bids_dir = 'bids_datasets/sample_dataset'
-    dataset = get_dataset(bids_dir)
-    paradigm = get_paradigm(channels=['C1', 'C2', 'C5', 'C3', 'C4', 'C6', 'FC3', 'CP3', 'FC4', 'CP4', 'Cz'])
+    with open('src/config.json', 'r') as file:
+        config = json.load(file)
+    dataset = get_dataset(dataset_path=config['dataset_path'], subject_list=config['subject_list'], interval=config['interval'], paradigm=config['paradigm'])
+    paradigm = get_paradigm(channels=config['selected_channels'])
 
     pipelines = {
         PipelineType.CSP_LDA.value: get_pipeline(PipelineType.CSP_LDA),
@@ -23,10 +25,10 @@ def main():
         # PipelineType.MVMD2_TGSP_SVM.value: get_pipeline(PipelineType.MVMD2_TGSP_SVM)
     }
 
-    evaluation = get_evaluation(paradigm, [dataset], overwrite=True)
+    evaluation = get_evaluation(paradigm, [dataset], overwrite=config['overwrite'])
     results = evaluation.process(pipelines)
-    # Save results to csv file, uncomment to save
-    # results.to_csv("./results.csv")
+    if config['save_results_to_csv']:
+        results.to_csv("./results.csv")
     plot_results(results)
 
 

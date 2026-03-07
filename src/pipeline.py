@@ -19,17 +19,16 @@ class PipelineType(Enum):
     MVMD2_TGSP_SVM = "mvmd2+tgsp+svm"
 
 def get_pipeline(pipeline_type: PipelineType):
-    if pipeline_type == PipelineType.CSP_LDA:
-        return make_pipeline(CSP(n_components=8), LDA())
-    elif pipeline_type == PipelineType.TGSP_SVM:
-        return make_pipeline(Covariances("oas"), TangentSpace(metric="riemann"), SVC(kernel="linear"))
-    elif pipeline_type == PipelineType.MDM:
-        return make_pipeline(Covariances("oas"), MDM(metric="riemann"))
-    elif pipeline_type == PipelineType.MVMD_CSP_LDA:
-        return make_pipeline(MVMD(K=3,alpha=100000), CSP(n_components=12, reg='shrunk'), LDA())
-    elif pipeline_type == PipelineType.MVMD2_CSP_LDA:
-        return make_pipeline(MVMD2(K=3,alpha=100000), CSP(n_components=12, reg='shrunk'), LDA())
-    elif pipeline_type == PipelineType.MVMD2_TGSP_SVM:
-        return make_pipeline(MVMD2(K=3,alpha=100000), Covariances("oas"), TangentSpace(metric="riemann"), SVC(kernel="linear"))
-    else:
+    pipelines = {
+        PipelineType.CSP_LDA: make_pipeline(CSP(n_components=8), LDA()),
+        PipelineType.TGSP_SVM: make_pipeline(Covariances("oas"), TangentSpace(metric="riemann"), SVC(kernel="linear")),
+        PipelineType.MDM: make_pipeline(Covariances("oas"), MDM(metric="riemann")),
+        PipelineType.MVMD_CSP_LDA: make_pipeline(MVMD(K=3,alpha=100000), CSP(n_components=12, reg='shrunk'), LDA()),
+        PipelineType.MVMD2_CSP_LDA: make_pipeline(MVMD2(K=3,alpha=100000), CSP(n_components=12, reg='shrunk'), LDA()),
+        PipelineType.MVMD2_TGSP_SVM: make_pipeline(MVMD2(K=3,alpha=100000), Covariances("oas"), TangentSpace(metric="riemann"), SVC(kernel="linear"))
+    }
+    
+    if pipeline_type not in pipelines:
         raise ValueError(f"Unknown pipeline type: {pipeline_type}")
+        
+    return pipelines[pipeline_type]

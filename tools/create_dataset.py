@@ -6,7 +6,7 @@ from mne_bids import write_raw_bids, BIDSPath
 
 
 # Read configuration file
-with open('create_dataset.json', 'r') as file:
+with open('tools/create_dataset.json', 'r') as file:
     config = json.load(file)
 
 annotation_numbering = {}
@@ -52,7 +52,7 @@ for edf_file in edf_files:
     timestamp, subject, session, type = os.path.splitext(edf_file)[0].split('_')
     
     # Create a BIDSPath object
-    bids_path = BIDSPath(subject=f"{subject}{type}", session=session, root=config['bids_location'])
+    bids_path = BIDSPath(subject=f"{subject}{type}", task=type, session=session, root=config['bids_location'])
 
     # Write the raw data to BIDS format
     write_raw_bids(raw, bids_path, overwrite=True, allow_preload=True, format='EDF', event_id=annotation_numbering)

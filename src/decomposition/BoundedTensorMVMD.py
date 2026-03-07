@@ -1,6 +1,5 @@
 import numpy as np
 # Ensure you have the base MVMD/TensorMVMD logic available
-from mvmd_2 import MVMD
 
 
 class BoundedTensorMVMD:

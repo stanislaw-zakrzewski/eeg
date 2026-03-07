@@ -185,4 +185,5 @@ fabric.properties
 .idea
 
 # User specified
-processed_data/*
+bids_datasets/*
+edf_datasets/*

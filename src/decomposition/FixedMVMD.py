@@ -1,5 +1,5 @@
 import numpy as np
-from mvmd_2 import MVMD
+from src.decomposition.MVMD import MVMD
 
 
 # Ensure you have the previous MVMD class available

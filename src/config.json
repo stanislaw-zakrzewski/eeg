@@ -1,0 +1,24 @@
+{
+  "dataset_path": "bids_datasets/sample_dataset",
+  "interval": [
+    0,
+    3
+  ],
+  "overwrite": true,
+  "paradigm": "imagery",
+  "save_results_to_csv": false,
+  "selected_channels": [
+    "C1",
+    "C2",
+    "C5",
+    "C3",
+    "C4",
+    "C6",
+    "FC3",
+    "CP3",
+    "FC4",
+    "CP4",
+    "Cz"
+  ],
+  "subject_list": []
+}

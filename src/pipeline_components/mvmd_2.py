@@ -1,8 +1,8 @@
 import numpy as np
 from sklearn.base import BaseEstimator, TransformerMixin
 
-from decomposition.BoundedTensorMVMD import BoundedTensorMVMD
-from decomposition.FixedMVMD import FixedMVMD
+from src.decomposition.BoundedTensorMVMD import BoundedTensorMVMD
+from src.decomposition.FixedMVMD import FixedMVMD
 
 
 class MVMD2(BaseEstimator, TransformerMixin):
