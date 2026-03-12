@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 def plot_results(results):
-    fig, ax = plt.subplots(figsize=(8, 7))
+    fig, ax = plt.subplots(figsize=(12, 8))
     results["subj"] = results["subject"].apply(str)
     sns.barplot(
         x="score", y="subj", hue="pipeline", data=results, orient="h", palette="viridis", ax=ax

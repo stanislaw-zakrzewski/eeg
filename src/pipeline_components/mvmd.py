@@ -37,7 +37,6 @@ class MVMD(BaseEstimator, TransformerMixin):
         - self
         """
         self.fit_count += 1
-        print('Fit:',self.fit_count)
         return self
 
     def transform(self, X):
@@ -51,7 +50,6 @@ class MVMD(BaseEstimator, TransformerMixin):
         - X_transformed: Transformed data of shape (n_epochs, K * n_channels, n_times)
         """
         self.transform_count += 1
-        print('Transform:',self.transform_count)
         # Check if X is a list or numpy array
         if not isinstance(X, np.ndarray):
             X = np.array(X)
