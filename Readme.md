@@ -1,6 +1,18 @@
 # EEG
 This repository is meant to provide full coverage of processing and testing eeg data.
 
+## Running in Docker
+Build the image
+```
+docker build -t eeg-app . 
+```
+Run the image 
+```
+docker run --rm -p 5000:5000 -v <<<IMAGE_ID>>> eeg-app
+```
+Process the data into BIDS: `http://127.0.0.1:5000/process-data`
+Classify the processed data: `http://127.0.0.1:5000/test-classifiers` - returns json file with results of 5 fold cross valiation
+
 ## Installing dependencies
 To install all required dependencies please use poetry:
 ```
@@ -17,7 +29,7 @@ Main workflow in this repository is stored in [`src/main.py`](src/main.py) file.
 ## Tools
 Tools help with different operations on eeg data that are not part of the main workflow.
 
-[Tools documentation](tools/Readme.md)
+[Tools documentation](src/tools/Readme.md)
 
 List of tools:
-- [create_dataset](tools/create_dataset.py) - converts multiple EDF files into one BIDS dataset
+- [create_dataset](src/tools/create_dataset.py) - converts multiple EDF files into one BIDS dataset

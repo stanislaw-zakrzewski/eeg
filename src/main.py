@@ -30,6 +30,7 @@ def main():
     if config['save_results_to_csv']:
         results.to_csv("./results.csv")
     plot_results(results)
+    return results.to_json()
 
 
 if __name__ == "__main__":
