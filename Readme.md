@@ -2,6 +2,8 @@
 This repository is meant to provide full coverage of processing and testing eeg data.
 
 ## Running in Docker
+Before running the app in the container make sure that the EDF data is available, the EDF files should be in the folder that is also referenced in a configuration for tools, see [detailed instructions](src/tools/Readme.md#create_dataset).
+
 Build the image
 ```
 docker build -t eeg-app . 
